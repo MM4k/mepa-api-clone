@@ -1,0 +1,9 @@
+"Orientações: 
+- Mantenha as colunas na mesma ordem, sem modificar o texto dos cabeçalhos
+- Preencha a data da fatura no formato MM/AAAA, ou DD/MM/AAAA usando números e a barra como separador
+- Preencha os outros valores somente com números, usando , como separador decimal
+- Para faturas da modalidade tarifária Verde, preencha as colunas Fora ponta, deixando as colunas Consumo Ponta (kWh) e Demanda Ponta (kW) em branco",,,,,
+Data,Consumo Ponta (kWh),Consumo Fora Ponta (kWh),Demanda Ponta (kW),Demanda Fora Ponta (kW),"Valor (R$)"
+04/2024,24,abd,350,412,"218,55"
+05-2024,10000000000,35,21,55,"8371,22"
+08/2021,"pedro",23,135,231,"874,4"

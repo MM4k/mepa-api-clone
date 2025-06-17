@@ -1,0 +1,45 @@
+[run]
+source = .
+data_file = reports/.coverage
+omit =
+    */tests/*
+    */test/*
+    */migrations/*
+    */settings/*
+    */__pycache__/*
+    */__init__.py
+    */wsgi.py
+    */asgi.py
+    */urls.py
+    */apps.py
+    */admin.py
+    manage.py
+    */.venv/*
+    */.tox/*
+    */apps.py
+    */admin.py
+    */permissions.py
+    */staticfiles/*
+    */mediafiles/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    def __str__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass
+    raise ImportError
+    except ImportError
+    raise Exception
+
+[html]
+title = Mepa API Coverage Report
+directory = reports/cov
+
+[xml]
+output = reports/coverage.xml
+
+[json]
+output = reports/coverage.json

@@ -1,0 +1,16 @@
+{
+    "blue": {
+        "smallest_total_demand_cost_in_reais": 514027.84,
+        "off_peak_demand_in_kw": 467.0,
+        "peak_demand_in_kw": 311.0,
+        "total_consumption_cost_in_reais": 469740.28,
+        "total_total_cost_in_reais": 983768.11
+    },
+    "green": {
+        "smallest_total_demand_cost_in_reais":178536.73,
+        "off_peak_demand_in_kw":467.0,
+        "total_consumption_cost_in_reais":745237.65,
+        "total_demand_cost_in_reais":180833.38,
+        "total_total_cost_in_reais":926071.02
+    }
+}

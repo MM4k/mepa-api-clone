@@ -1,0 +1,2 @@
+* * * * * export $(cat /root/env | xargs) && /usr/local/bin/python /app/mepa-api/manage.py send_invalid_token_emails >> /app/mepa-api/logs/cron_send_invalid_token_emails_output.log 2>&1
+0 0 * * * export $(cat /root/env | xargs) && /usr/local/bin/python /app/mepa-api/manage.py backup_db >> /app/mepa-api/logs/cron_output.log 2>&1

@@ -1,0 +1,37 @@
+---
+services:
+  mepa-api-ci:
+    container_name: mepa-api-ci
+    image: ${CI_IMAGE:-mepa-api}:${IMAGE_TAG:-ci}
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.ci
+      args:
+        - BUILD_ENV=${ENVIRONMENT:-test}
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - POSTGRES_DB=${POSTGRES_DB:-ci_db}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres_ci}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-mec_energia.settings.ci}
+    volumes:
+      - ${CI_PROJECT_DIR:-.}:/app/mepa-api
+
+  mepa-db-ci:
+    container_name: mepa-db-ci
+    image: postgres:17.2-bookworm
+    restart: on-failure
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-ci_db}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres_ci}
+    tmpfs:
+      - /var/lib/postgresql/data
+    profiles: ["ci-db", "all"]
+
+  redis:
+    image: redis:7.4.2-alpine3.21
+    command: redis-server --save "" --appendonly no
+    tmpfs:
+      - /data
+    profiles: ["ci-redis", "all"]

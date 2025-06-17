@@ -1,0 +1,55 @@
+
+services:
+  mepa-api:
+    container_name: mepa-api
+    restart: unless-stopped
+    image: mepa-api:latest-dev
+    build:
+        context: .
+        dockerfile: Dockerfile
+        args:
+            - DJANGO_ENV=${ENVIRONMENT:-development}
+    env_file: 
+      - ./.envs/.env.dev
+    command: ['sh', 'scripts/start_dev.sh']
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app/mepa-api
+    networks:
+        - api-network
+        - web-network
+    depends_on:
+      - mepa-db
+
+  mepa-db:
+    container_name: mepa-db
+    restart: unless-stopped
+    image: postgres:15.2-bullseye
+    env_file: 
+      - ./.envs/.env.dev
+    volumes:
+      - mepa-dev-data:/var/lib/postgresql/data
+    networks:
+        - api-network
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    ports:
+      - "1025:1025" 
+      - "8025:8025"  
+    networks:
+        - api-network
+
+volumes:
+  mepa-dev-data:
+    name: mepa-dev-data
+
+networks:
+  api-network:
+    name: api-network
+    driver: bridge
+  web-network:
+    name: web-network
+    driver: bridge

@@ -1,0 +1,79 @@
+[project]
+name = "MEPA"
+description = "Monitoramento de Energia em Plataforma Aberta"
+version = "0.0.1"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 119
+
+exclude = [
+    ".env",
+    ".venv",
+    ".gitlab",
+    "docs",
+    "logs",
+    "reports",
+    "scripts",
+    "mediafiles",
+    "staticfiles",
+    "__pycache__",
+    "*/migrations/*.py",
+    ".git",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+unfixable = [
+    "E501",    # line-too-long
+    "F401",    # unused-import
+]
+
+# Allow unused variables when underscore-prefixed (_, __).
+dummy-variable-rgx = "^_$" 
+
+select = [
+    "F",    # PyFlakes (PEP 8)                
+    "E",    # Pycodestyle Error (E)           
+    "W",    # Pycodestyle Warning (W)         
+    "I",    # Isort                           
+    "UP",   # Pyupgrade                       
+    # "A",    # Flake 8: Builtins               
+    # "DJ",   # Flake 8: Django                 
+    # "N",    # PEP 8: Naming Conventions       -
+]
+
+ignore = [
+    "F841",     # Avoid enforcing unused variables
+    "W191",     # tab-indentation
+    "E111",     # indentation-with-invalid-multiple
+    "E114",     # indentation-with-invalid-multiple-comment
+    "E117",     # over-indented
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "D"] 
+"**/{tests,docs,tools}/*" = ["E402"]
+"tests/*.py" = [
+    "PLR2004", # magic value comparison
+    "S101",    # use of assert detected
+    "TCH002",  # third party import (for pytest)
+    "D",       # missing docstring
+    "ANN",      # missing type annotations
+    "F401",    # unused import
+    "F811",    # redefinition of unused variable
+
+]
+
+
+[tool.ruff.lint.isort] 
+force-single-line = false
+force-wrap-aliases = false
+lines-after-imports = -1
+lines-between-types = 1
+split-on-trailing-comma = true

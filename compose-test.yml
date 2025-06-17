@@ -1,0 +1,58 @@
+
+services:
+  mepa-api:
+    container_name: mepa-api
+    restart: unless-stopped
+    image: mepa-api:latest-test
+    build:
+        context: .
+        dockerfile: Dockerfile
+        args:
+          - DJANGO_ENV=${ENVIRONMENT:-test}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    env_file: 
+      - ./.envs/.env.test
+    command: ['sh', 'scripts/start_prod.sh']
+    networks:
+      - api-network
+      - web-network
+    depends_on:
+      - mepa-db
+
+  mepa-db:
+    container_name: mepa-db
+    restart: unless-stopped
+    image: postgres:${POSTGRES_VERSION}
+    ports:
+      - "5432:5432"
+    env_file: 
+      - ./.envs/.env.test
+    volumes:
+      - mepa_test_data:/var/lib/postgresql/data
+    networks:
+      - api-network
+
+  redis:
+    container_name: redis
+    image: redis:7.0-alpine3.19
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    networks:
+      - api-network
+    depends_on:
+      - mepa-db
+
+volumes:
+  mepa_test_data:
+    name: mepa_test_data
+
+networks:
+  api-network:
+    name: api-network
+    driver: bridge
+  web-network:
+    name: web-network
+    driver: bridge

@@ -1,0 +1,35 @@
+# Diretórios de controle de versão
+.git
+.gitignore
+
+# Arquivos de configuração do Docker
+docker-compose-*.yml
+compose*.yml
+Dockerfile*
+
+# Diretórios de dependências e de ambiente virtual
+node_modules
+venv
+.venv
+__pycache__
+*.pyc
+
+# Arquivos de dados e backups
+*.bak
+*.tar
+*.tar.gz
+*.zip
+
+# Arquivos de logs e de banco de dados
+*.log
+*.sqlite3
+postgres-data/
+
+# Diretórios que não são necessários para a construção ou execução
+tests
+examples
+reports
+tmp
+temp
+.draft
+README.md
