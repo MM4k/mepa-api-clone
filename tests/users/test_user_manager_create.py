@@ -88,7 +88,8 @@ class TestUserManagerCreate:
         """CT6 - Criar usuário de outro tipo (não universitário)"""
         settings.ENVIRONMENT = "production"
 
-        with patch.object(models.CustomUser, 'university_user_types', []):
+        with patch('users.authentications.Password.send_email_first_access_password'), \
+            patch.object(models.CustomUser, 'university_user_types', []):
             user = self.manager.create(
                 email="admin@fake.com",
                 password="AdminPassword",
@@ -99,3 +100,4 @@ class TestUserManagerCreate:
         assert user.email == "admin@fake.com"
         assert user.type == CustomUser.Type.SUPER_USER
         assert user.check_password("AdminPassword")
+
